@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <functional>
+#include <map>
 
 #define HOG_ARCHIVE_MAGIC		0xDEADBEAF
 
@@ -116,7 +117,9 @@ namespace Hog
 			VirtualFile();
 			virtual ~VirtualFile();
 
+			std::string virtualFilePath;
 			std::vector<uint8_t> fileDataCache;		/// This gets move-temped into the caller's array unless the cache can persist.
+			FileEntry fileEntry;
 		};
 
 		class EmbeddedFile : public VirtualFile
@@ -124,8 +127,6 @@ namespace Hog
 		public:
 			EmbeddedFile();
 			virtual ~EmbeddedFile();
-			
-			FileEntry fileEntry;
 		};
 
 		class ExternalFileEntry : public VirtualFile
@@ -139,6 +140,6 @@ namespace Hog
 
 		Header header;
 
-		std::vector<std::shared_ptr<VirtualFile>> virtualFileArray;
+		std::map<std::string, std::shared_ptr<VirtualFile>> virtualFileArray;
 	};
 }

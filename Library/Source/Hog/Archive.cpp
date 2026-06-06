@@ -42,6 +42,7 @@ bool Archive::AddVirtualFile(const std::string& virtualFilePath, const std::stri
 
 Archive::VirtualFile::VirtualFile()
 {
+	::memset(&this->fileEntry, 0, sizeof(FileEntry));
 }
 
 /*virtual*/ Archive::VirtualFile::~VirtualFile()
@@ -52,7 +53,6 @@ Archive::VirtualFile::VirtualFile()
 
 Archive::EmbeddedFile::EmbeddedFile()
 {
-	::memset(&this->fileEntry, 0, sizeof(FileEntry));
 }
 
 /*virtual*/ Archive::EmbeddedFile::~EmbeddedFile()
